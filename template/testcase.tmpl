@@ -1,0 +1,21 @@
+{{- define "testcase"}}
+{{- $top := .}}
+{{- range (index $top.TemplateParams.TargetMethodTesCasesMap .Name)}}
+{
+    name: "{{if .IsSuccessPattern}}正常{{else}}異常: {{.Line}}行目のif文{{end}}",
+    fields: fields {
+    {{- range $k, $mockMethods := .DepMethodsInField}}
+        {{- $fieldInfo := index $top.TemplateParams.FieldMap $k}}
+        {{$k}}: func(ctrl *gomock.Controller) {{$fieldInfo.TypeName}} {
+            mock := {{if ne (len $fieldInfo.PackageName) 0}}{{$fieldInfo.PackageName}}.{{- end}}NewMock{{$fieldInfo.UpperCamelCaseTypeName}}(ctrl)
+            // TODO embed expected args and return values
+            {{- range $mockMethod := $mockMethods}}
+            mock.EXPECT().{{$mockMethod.Name}}({{$mockMethod.Arg}}).Return({{$mockMethod.Return}})
+            {{- end}}
+            return mock
+        },
+    {{- end}}
+    },
+},
+{{- end}}
+{{end}}
