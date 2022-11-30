@@ -25,7 +25,7 @@ func ProvideSubCommands() cli.Commands {
 func getCommonFlags() []cli.Flag {
 	return []cli.Flag{
 		&cli.StringFlag{
-			Name: OnlyFlag, Usage: "指定した正規表現に合致する関数もしくはメソッドに対してテストを生成する。",
+			Name: OnlyFlag, Usage: "指定した正規表現に合致する関数もしくはメソッドに対してテストを生成する",
 		},
 		&cli.BoolFlag{
 			Name: ExportedFlag, Usage: "公開されている関数もしくはメソッドに対してテストを生成する。onlyよりも優先される", Value: false,
@@ -37,7 +37,7 @@ func getCommonFlags() []cli.Flag {
 			Name: TemplateDirFlag, Usage: "テストの生成に利用するテンプレートのディレクトリへのパス", Value: "template",
 		},
 		&cli.BoolFlag{
-			Name: PrintTestInputsFlag, Usage: "エラーメッセージにテストの入力を出力するか", Value: false,
+			Name: PrintTestInputsFlag, Usage: "エラーメッセージにテストの入力を出力するか", Value: true,
 		},
 		&cli.BoolFlag{
 			Name: ParallelFlag, Usage: "サブテストを並行実行するテストコードを出力する", Value: false,
