@@ -10,6 +10,11 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var (
+	gotestsName = "gotests"
+	envKey      = "ANOTHER_NAMED_GOTESTS"
+)
+
 func generateCreateCommand() *cli.Command {
 	return &cli.Command{
 		Name:    "create",
@@ -64,10 +69,16 @@ func createAction(cCtx *cli.Context) error {
 }
 
 func callGotests(options []string, targetFilePath string) error {
+	// 環境変数にANOTHER_NAMED_GOTESTSが設定されている場合
+	// 別名にしたgotestsを参照するようにする
+	anotherNamedGotests := os.Getenv(envKey)
+	if anotherNamedGotests != "" {
+		gotestsName = anotherNamedGotests
+	}
 	// goのテストコードを自動生成するコマンドの呼び出し
 	cmdArgs := append(options, targetFilePath)
 	cmd := exec.Command(
-		"gotests",
+		gotestsName,
 		cmdArgs...,
 	)
 
