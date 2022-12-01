@@ -71,6 +71,8 @@ func TestSampleService_UpdateToRandomName(t *testing.T) {
 
 [gotests](https://github.com/cweill/gotests)を内部的に利用しています。
 
+※ このツールを、そのままプロジェクトで活用できることは保証しません！
+利用するテンプレートの更新や、自動生成物の微修正が必要になる可能性は十二分にあります。
 ## Installation
 ```shell
 go install github.com/kazdevl/tgen/cmd/tgen@latest
